@@ -103,5 +103,5 @@
       lastVisibilityFire=performance.now();setTimeout(()=>fire(true),220);
     }
   });
-  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js?v=2').catch(()=>{});
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js?v=3').catch(()=>{});
 })();

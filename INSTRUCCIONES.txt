@@ -1,41 +1,37 @@
-RayPay 2.0 — RAYO + TRUENO
-==========================
-Esta es la actualización de la versión web ya publicada en:
-https://pfuchsberger.github.io/raypay/
+RAYPAY v3 · Wallet original + rayo amarillo + trueno
 
-QUÉ CAMBIÓ
-- Se quitaron textos, botones y menús de la pantalla.
-- Se ve únicamente una tarjeta simulada, sin datos bancarios reales.
-- El rayo amarillo cruza toda la pantalla sobre esa tarjeta.
-- Sonido original de descarga eléctrica seguido de un trueno.
-- Tocá cualquier lugar de la pantalla para repetir el efecto con sonido.
-- La dirección ?play=1 mantiene el disparo automático visual desde Atajos.
+IMPORTANTE: esta versión usa EXACTAMENTE la captura que facilitaste.
+La imagen incluye datos de tus transacciones y los últimos cuatro dígitos
+visibles de la tarjeta. GitHub Pages es público: cualquiera podrá ver la
+imagen descargándola. Si te preocupa la privacidad, no publiques esa captura
+sin ocultar primero esos datos.
 
-ACTUALIZAR EL SITIO EXISTENTE EN GITHUB DESDE WINDOWS
-1. Descomprimí RayPay_v2_GitHub.zip.
-2. Entrá a https://github.com/pfuchsberger/raypay
-3. Actualizá en la RAÍZ del repositorio estos archivos:
-   index.html, app.js, sw.js, manifest.webmanifest, thunder.wav
-   (la carpeta icons/ puede quedar igual; está incluida por comodidad).
-4. Confirmá los cambios (Commit changes) y esperá la publicación de GitHub Pages.
-5. En iPhone, abrí Safari y visitá:
-   https://pfuchsberger.github.io/raypay/?play=1&v=2
-   Este enlace fuerza una navegación nueva y dispara la animación.
-6. La app ya añadida a la pantalla de inicio conserva el ícono. Cerrala
-   completamente y volvé a abrirla; si ves la versión anterior, cargá la
-   nueva página en Safari y eliminá/agregá nuevamente el acceso directo.
+ACTUALIZAR GITHUB PAGES DESDE WINDOWS
+1. Descomprimí este ZIP. Todos los archivos deben estar en la RAÍZ del
+   repositorio pfuchsberger/raypay (no dentro de la carpeta del ZIP).
+2. Abrí https://github.com/pfuchsberger/raypay
+3. Elegí Add file -> Upload files, y subí: index.html, app.js, sw.js,
+   manifest.webmanifest, thunder.wav, wallet-background.png y la carpeta icons.
+   Reemplazá las versiones previas. Confirmá con Commit changes.
+4. Esperá que se publique y abrí en Safari del iPhone:
+   https://pfuchsberger.github.io/raypay/?play=1&v=3
+5. Tocá la pantalla para repetir el rayo con sonido.
 
-SONIDO EN IPHONE
-- Al tocar la pantalla, Safari normalmente permite reproducir el trueno.
-- Si Atajos abre la URL sin interacción, iOS puede bloquear el audio por
-  sus reglas de reproducción automática. El rayo visual sí se ejecuta.
-- Para sonido automático desde Atajos, se puede probar una automatización
-  que reproduzca thunder.wav desde Archivos antes de abrir la URL;
-  esa alternativa depende de las opciones y permisos disponibles en tu iOS.
-- La app no se superpone sobre Apple Wallet; muestra una tarjeta simulada.
-
-URL PARA LA AUTOMATIZACIÓN
+ATAJOS
+La URL de activación sigue siendo:
 https://pfuchsberger.github.io/raypay/?play=1
+No necesitás cambiarla. No se dibuja encima de Wallet: muestra su captura
+estática dentro de RayPay, con el rayo animado encima.
 
-PRIVACIDAD
-RayPay no consulta pagos ni datos bancarios. El disparo lo hace Atajos.
+IMPORTANTE SOBRE SONIDO
+Safari/iOS puede impedir reproducir audio automáticamente si no hubo
+interacción del usuario. Tocando la pantalla sí debería escucharse.
+
+SI NO VES LA ACTUALIZACIÓN
+1. Probá ?play=1&v=3 en Safari.
+2. Cerrá RayPay y volvela a abrir.
+3. Si seguís viendo la versión anterior, borrá el ícono de RayPay de la
+   pantalla de inicio y agregalo de nuevo desde Safari, o borrá los datos
+   del sitio correspondientes al dominio en la configuración de Safari.
+
+Este prototipo no interactúa con tarjetas ni efectúa pagos reales.

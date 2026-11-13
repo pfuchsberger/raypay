@@ -3,70 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <meta name="theme-color" content="#080d18">
+  <meta name="theme-color" content="#f0eff4">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="RayPay">
-  <meta name="description" content="RayPay, una descarga eléctrica para celebrar un pago.">
-  <link rel="manifest" href="manifest.webmanifest?v=2">
+  <meta name="description" content="RayPay: rayo y trueno sobre una captura de Apple Wallet.">
+  <link rel="manifest" href="manifest.webmanifest?v=3">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" type="image/png" href="icons/icon-192.png">
   <title>RayPay</title>
   <style>
-    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent }
-    html, body { width:100%; height:100%; margin:0; overflow:hidden; background:#080d18; }
-    body { touch-action:manipulation; user-select:none; -webkit-user-select:none; cursor:pointer; }
-    .scene { position:fixed; inset:0; isolation:isolate; overflow:hidden;
-      background:radial-gradient(ellipse 95% 62% at 50% 33%,#273647 0%,#17202e 43%,#090e19 82%,#060a11 100%); }
-    .scene::after { content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-      background:linear-gradient(170deg,rgba(255,255,255,.055),transparent 37%,rgba(0,0,0,.23)); }
-    .wallet-card { position:absolute; z-index:1; left:50%; top:43%; width:min(88vw,430px);
-      aspect-ratio:1.59; transform:translate(-50%,-50%); overflow:hidden;
-      border-radius:clamp(17px,5vw,25px); border:1px solid rgba(255,255,255,.23);
-      background:radial-gradient(ellipse at 7% 6%,rgba(230,242,255,.22),transparent 35%),
-                 radial-gradient(ellipse at 96% 98%,rgba(252,188,87,.26),transparent 45%),
-                 linear-gradient(145deg,#4a5768 0%,#232c3b 38%,#141927 77%,#0d1421 100%);
-      box-shadow:0 32px 62px rgba(0,0,0,.47),inset 0 1px 0 rgba(255,255,255,.12); }
-    .wallet-card::before { content:""; position:absolute; width:120%; height:125%; left:17%; top:-42%;
-      transform:rotate(-30deg); border:1px solid rgba(255,236,198,.16); border-radius:50%;
-      box-shadow:0 0 35px rgba(255,215,125,.08); }
-    .wallet-card::after { content:"";position:absolute;left:-9%;right:-15%;height:45%;bottom:-20%;
-      transform:rotate(-16deg);border-radius:50%; background:rgba(230,185,111,.1);filter:blur(35px); }
-    .badge-emblem { position:absolute;top:12%;right:8%;width:12.3%;aspect-ratio:1;border-radius:50%;
-      border:2px solid rgba(255,239,200,.62);box-shadow:inset 0 0 16px rgba(255,214,117,.08); }
-    .badge-emblem::before, .badge-emblem::after {content:"";position:absolute;top:22%;height:52%;width:36%;border:2px solid rgba(255,233,185,.58);border-radius:50%;}
-    .badge-emblem::before {left:19%;}.badge-emblem::after {right:19%;}
-    .chip { position:absolute;left:9%;top:49%;width:16%;height:22%;border:1px solid #9b8c63;border-radius:7px;
-      background:linear-gradient(140deg,#eee0aa,#ad9360 53%,#f4dda0);box-shadow:0 2px 8px #0006;overflow:hidden; }
-    .chip::before,.chip::after {content:"";position:absolute;inset:0; border:1px solid rgba(80,68,45,.4);border-radius:45%; transform:scale(1.5,.63);}
-    .chip::after { transform:scale(.55,1.5); }
-    .nfc { position:absolute;left:29%;top:49%;width:11%;height:21%;opacity:.66; }
-    .nfc path {fill:none;stroke:#f2e6c8;stroke-width:4.3;stroke-linecap:round;}
-    .card-sheen {position:absolute;inset:0;pointer-events:none;
-      background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.045) 53%,transparent 68%); }
-    .card-shadow {position:absolute; z-index:0; left:8%;right:8%;top:calc(43% + min(27.7vw, 135px));height:11%;
-      background:rgba(1,4,10,.4);filter:blur(30px);border-radius:50%;}
-    #flash {position:fixed;inset:0;z-index:3;opacity:0;pointer-events:none;mix-blend-mode:screen;
-      background:radial-gradient(ellipse at 52% 41%,rgba(255,255,232,1) 0%,rgba(255,242,123,.85) 14%,rgba(255,220,22,.35) 37%,transparent 76%);}
-    #fx {position:fixed;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;}
-    @media (orientation:landscape) {.wallet-card{width:min(64vw,430px);top:49%;}.card-shadow{display:none;}}
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { width:100%;height:100%;margin:0;overflow:hidden;background:#f0eff4; }
+    body { touch-action:manipulation;user-select:none;-webkit-user-select:none;cursor:pointer; }
+    /* Captura original facilitada por el usuario, sin recrear ni modificar la tarjeta. */
+    #walletBackground {
+      position:fixed;inset:0;z-index:0;display:block;
+      width:100%;height:100%;
+      object-fit:cover;object-position:center top;
+      pointer-events:none;-webkit-user-drag:none;
+    }
+    #flash {
+      position:fixed;inset:0;z-index:1;opacity:0;pointer-events:none;
+      mix-blend-mode:screen;
+      background:radial-gradient(ellipse at 52% 41%,
+        rgba(255,255,232,1) 0%,rgba(255,242,123,.85) 14%,
+        rgba(255,220,22,.35) 37%,transparent 76%);
+    }
+    #fx {
+      position:fixed;inset:0;z-index:2;display:block;
+      width:100%;height:100%;pointer-events:none;
+    }
+    @media (prefers-reduced-motion:reduce) {
+      /* El efecto se mantiene porque es la función explícita de RayPay. */
+    }
   </style>
 </head>
 <body aria-label="RayPay. Toca cualquier parte de la pantalla para lanzar un rayo con sonido.">
-  <div class="scene" aria-hidden="true">
-    <div class="card-shadow"></div>
-    <div class="wallet-card">
-      <div class="badge-emblem"></div>
-      <div class="chip"></div>
-      <svg class="nfc" viewBox="0 0 45 50" aria-hidden="true">
-        <path d="M5 11 Q28 25 5 39 M15 6 Q43 25 15 44 M27 2 Q62 25 27 48" />
-      </svg>
-      <div class="card-sheen"></div>
-    </div>
-  </div>
+  <img id="walletBackground" src="wallet-background.png" alt="" aria-hidden="true" draggable="false">
   <div id="flash" aria-hidden="true"></div>
   <canvas id="fx" aria-hidden="true"></canvas>
-  <audio id="thunder" preload="auto" src="thunder.wav"></audio>
-  <script src="app.js?v=2" defer></script>
+  <audio id="thunder" preload="auto" playsinline src="thunder.wav"></audio>
+  <script src="app.js?v=3" defer></script>
 </body>
 </html>
