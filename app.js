@@ -126,10 +126,14 @@
   const params=new URLSearchParams(location.search);
   const auto=params.has('play')||params.has('auto');
   if(auto)setTimeout(()=>fire(true),260);
+  // ?close=1: intentar cerrar la pestaña cuando termina el rayo (~1.8 s).
+  // Safari sólo lo permite si la pestaña tiene una única página en su historial;
+  // si no lo permite, no pasa nada y la pestaña queda abierta.
+  if(params.has('close'))setTimeout(()=>{try{window.close();}catch(_){}},2300);
   document.addEventListener('visibilitychange',()=>{
     if(document.visibilityState==='visible'&&auto&&performance.now()-lastVisibilityFire>2200){
       lastVisibilityFire=performance.now();setTimeout(()=>fire(true),220);
     }
   });
-  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js?v=5').catch(()=>{});
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js?v=6').catch(()=>{});
 })();
