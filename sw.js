@@ -1,6 +1,6 @@
 // Cache RayPay v3: también conserva la captura auténtica para uso offline.
-const CACHE = 'raypay-v3-wallet-original';
-const files = ['./','./index.html','./app.js?v=3','./wallet-background.png',
+const CACHE = 'raypay-v4-wallet-original';
+const files = ['./','./index.html','./app.js?v=4','./wallet-background.png',
   './thunder.wav','./manifest.webmanifest?v=3','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(files)));

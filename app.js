@@ -80,9 +80,34 @@
     ctx.restore();
     frame=requestAnimationFrame(()=>animate(start,runId));
   }
-  function playThunder(){
-    // Al abrir mediante Atajos, iOS puede bloquear audio sin toque del usuario.
+  // --- Audio ---
+  // iOS: (1) sólo deja sonar dentro de un gesto válido (touchend/click, NO pointerdown/touchstart);
+  // (2) con el interruptor de silencio activo, Web Audio queda mudo salvo que la sesión sea 'playback'.
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch(_){ }
+  const AC = window.AudioContext || window.webkitAudioContext;
+  let actx = null, thunderBuf = null;
+  if (AC) {
+    try {
+      actx = new AC();
+      fetch('thunder.wav').then(r => r.arrayBuffer())
+        .then(b => new Promise((ok, ko) => actx.decodeAudioData(b, ok, ko)))
+        .then(buf => { thunderBuf = buf; }).catch(() => {});
+    } catch(_) { actx = null; }
+  }
+  function playElement(){
     try {thunder.pause();thunder.currentTime=0;const p=thunder.play();if(p&&p.catch)p.catch(()=>{});}catch(_){ }
+  }
+  function playThunder(){
+    // Al abrir mediante Atajos (sin toque), iOS bloquea el audio: el rayo visual igual se ve.
+    if (actx && thunderBuf) {
+      try {
+        if (actx.state !== 'running') actx.resume();
+        const src = actx.createBufferSource();
+        src.buffer = thunderBuf; src.connect(actx.destination); src.start(0);
+        return;
+      } catch(_) { }
+    }
+    playElement();
   }
   function fire(withSound=true){
     cancelAnimationFrame(frame);resize();createElectricity();
@@ -92,7 +117,10 @@
     if(navigator.vibrate)navigator.vibrate([25,38,65]);
   }
   // La pantalla entera sirve como botón invisible, sin textos ni controles.
-  document.body.addEventListener('pointerdown',()=>fire(true),{passive:true});
+  // touchend (iPhone) y click (desktop) cuentan como gesto para habilitar audio; pointerdown no.
+  let lastTouch=0;
+  document.addEventListener('touchend',()=>{lastTouch=Date.now();fire(true);},{passive:true});
+  document.addEventListener('click',()=>{if(Date.now()-lastTouch>800)fire(true);});
   document.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fire(true);}});
   // URL usada por Atajos: ?play=1. También la apertura desde el ícono ?auto=1.
   const params=new URLSearchParams(location.search);
@@ -103,5 +131,5 @@
       lastVisibilityFire=performance.now();setTimeout(()=>fire(true),220);
     }
   });
-  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js?v=3').catch(()=>{});
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js?v=4').catch(()=>{});
 })();
