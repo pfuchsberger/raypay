@@ -2,64 +2,71 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#090b13">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#080d18">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="RayPay">
-  <meta name="description" content="RayPay: un destello mágico para celebrar un pago.">
-  <meta name="color-scheme" content="dark">
-  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="description" content="RayPay, una descarga eléctrica para celebrar un pago.">
+  <link rel="manifest" href="manifest.webmanifest?v=2">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" type="image/png" href="icons/icon-192.png">
-  <title>RayPay ⚡</title>
+  <title>RayPay</title>
   <style>
-  :root{--gold:#ffde40;--bg:#090b13;--muted:#9ba6b9;--border:rgba(255,255,255,.14)}
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;color:white}
-  body{touch-action:manipulation;user-select:none;-webkit-user-select:none}
-  #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
-  #flash{position:fixed;inset:0;z-index:2;opacity:0;pointer-events:none;background:radial-gradient(circle at 52% 48%,rgba(255,247,178,.9) 0%,rgba(255,225,38,.45) 18%,rgba(255,209,0,.13) 43%,transparent 78%);mix-blend-mode:screen}
-  .ambient{position:fixed;inset:-20%;pointer-events:none;background:radial-gradient(circle at 50% 42%,#1e273a 0%,#101521 30%,#090b13 62%)}
-  .stars{position:fixed;inset:0;opacity:.35;background-image:radial-gradient(#dfe6ff 0.65px,transparent .65px);background-size:43px 43px;mask-image:linear-gradient(to bottom,black,transparent)}
-  main{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center;height:100svh;min-height:350px;padding:max(28px,env(safe-area-inset-top)) 24px max(32px,env(safe-area-inset-bottom));text-align:center}
-  .brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.045em;font-size:26px}
-  .brand .icon{font-size:24px;color:var(--gold);filter:drop-shadow(0 0 13px #ffda4270)}
-  .center{display:flex;flex-direction:column;align-items:center;gap:10px;transform:translateY(6%)}
-  .mark{display:grid;place-items:center;width:min(45vw,180px);height:min(45vw,180px);border-radius:44px;background:linear-gradient(145deg,#262d42,#111520 56%,#0b0e18);border:1px solid rgba(255,223,111,.16);box-shadow:0 23px 70px #0009, inset 0 1px 0 #ffffff11;transform:rotate(-8deg);margin-bottom:23px}
-  .mark span{font-size:clamp(65px,21vw,110px);line-height:1;filter:drop-shadow(0 3px 12px #ffb8008c)}
-  h1{font-size:clamp(32px,9vw,46px);margin:0;font-weight:800;letter-spacing:-.06em}
-  h1 em{font-style:normal;color:var(--gold)}
-  .subtitle{max-width:300px;font-size:16px;color:#b6c0d0;line-height:1.5;margin:2px 0 0}
-  .footer{width:100%;max-width:390px;display:flex;flex-direction:column;gap:12px}
-  button{appearance:none;border:0;cursor:pointer;border-radius:18px;padding:19px 22px;font-size:17px;font-weight:800;letter-spacing:-.015em;background:linear-gradient(120deg,#ffbd2e,#ffed64);color:#19150c;box-shadow:0 10px 34px #ffbd2f30, inset 0 1px 0 #fff7a9;touch-action:manipulation}
-  button:active{transform:scale(.98)}
-  .quiet{background:transparent;border:1px solid var(--border);color:#e4e7f0;box-shadow:none;font-size:13px;font-weight:600;padding:12px 16px}
-  .hint{color:#8b95a7;font-size:12px;line-height:1.45;padding:0 2px}
-  .status{font-size:11px;color:#7c879b}
-  #settings{display:none;margin-top:9px;padding:12px;border-radius:15px;border:1px solid var(--border);text-align:left;font-size:12px;color:#c3cad8;background:#141b2b}
-  #settings.show{display:block}
-  #settings strong{color:var(--gold)}
-  .toggles{display:flex;gap:18px;margin-top:9px}
-  label{cursor:pointer}
-  input{accent-color:#ffd73a}
-  @media(prefers-reduced-motion: reduce){.mark{transform:none}}
+    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent }
+    html, body { width:100%; height:100%; margin:0; overflow:hidden; background:#080d18; }
+    body { touch-action:manipulation; user-select:none; -webkit-user-select:none; cursor:pointer; }
+    .scene { position:fixed; inset:0; isolation:isolate; overflow:hidden;
+      background:radial-gradient(ellipse 95% 62% at 50% 33%,#273647 0%,#17202e 43%,#090e19 82%,#060a11 100%); }
+    .scene::after { content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+      background:linear-gradient(170deg,rgba(255,255,255,.055),transparent 37%,rgba(0,0,0,.23)); }
+    .wallet-card { position:absolute; z-index:1; left:50%; top:43%; width:min(88vw,430px);
+      aspect-ratio:1.59; transform:translate(-50%,-50%); overflow:hidden;
+      border-radius:clamp(17px,5vw,25px); border:1px solid rgba(255,255,255,.23);
+      background:radial-gradient(ellipse at 7% 6%,rgba(230,242,255,.22),transparent 35%),
+                 radial-gradient(ellipse at 96% 98%,rgba(252,188,87,.26),transparent 45%),
+                 linear-gradient(145deg,#4a5768 0%,#232c3b 38%,#141927 77%,#0d1421 100%);
+      box-shadow:0 32px 62px rgba(0,0,0,.47),inset 0 1px 0 rgba(255,255,255,.12); }
+    .wallet-card::before { content:""; position:absolute; width:120%; height:125%; left:17%; top:-42%;
+      transform:rotate(-30deg); border:1px solid rgba(255,236,198,.16); border-radius:50%;
+      box-shadow:0 0 35px rgba(255,215,125,.08); }
+    .wallet-card::after { content:"";position:absolute;left:-9%;right:-15%;height:45%;bottom:-20%;
+      transform:rotate(-16deg);border-radius:50%; background:rgba(230,185,111,.1);filter:blur(35px); }
+    .badge-emblem { position:absolute;top:12%;right:8%;width:12.3%;aspect-ratio:1;border-radius:50%;
+      border:2px solid rgba(255,239,200,.62);box-shadow:inset 0 0 16px rgba(255,214,117,.08); }
+    .badge-emblem::before, .badge-emblem::after {content:"";position:absolute;top:22%;height:52%;width:36%;border:2px solid rgba(255,233,185,.58);border-radius:50%;}
+    .badge-emblem::before {left:19%;}.badge-emblem::after {right:19%;}
+    .chip { position:absolute;left:9%;top:49%;width:16%;height:22%;border:1px solid #9b8c63;border-radius:7px;
+      background:linear-gradient(140deg,#eee0aa,#ad9360 53%,#f4dda0);box-shadow:0 2px 8px #0006;overflow:hidden; }
+    .chip::before,.chip::after {content:"";position:absolute;inset:0; border:1px solid rgba(80,68,45,.4);border-radius:45%; transform:scale(1.5,.63);}
+    .chip::after { transform:scale(.55,1.5); }
+    .nfc { position:absolute;left:29%;top:49%;width:11%;height:21%;opacity:.66; }
+    .nfc path {fill:none;stroke:#f2e6c8;stroke-width:4.3;stroke-linecap:round;}
+    .card-sheen {position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.045) 53%,transparent 68%); }
+    .card-shadow {position:absolute; z-index:0; left:8%;right:8%;top:calc(43% + min(27.7vw, 135px));height:11%;
+      background:rgba(1,4,10,.4);filter:blur(30px);border-radius:50%;}
+    #flash {position:fixed;inset:0;z-index:3;opacity:0;pointer-events:none;mix-blend-mode:screen;
+      background:radial-gradient(ellipse at 52% 41%,rgba(255,255,232,1) 0%,rgba(255,242,123,.85) 14%,rgba(255,220,22,.35) 37%,transparent 76%);}
+    #fx {position:fixed;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;}
+    @media (orientation:landscape) {.wallet-card{width:min(64vw,430px);top:49%;}.card-shadow{display:none;}}
   </style>
 </head>
-<body>
-  <div class="ambient"></div><div class="stars"></div>
-  <div id="flash"></div><canvas id="fx" aria-hidden="true"></canvas>
-  <main>
-    <div class="brand"><span class="icon">⚡</span> RayPay</div>
-    <div class="center"><div class="mark"><span>⚡</span></div><h1>El dinero tiene <em>magia.</em></h1><p class="subtitle">Un rayo de energía cada vez que pagás.</p></div>
-    <div class="footer">
-      <button id="play" type="button">⚡ Lanzar el rayo</button>
-      <button id="showSettings" class="quiet" type="button">Opciones · Sonido y vibración</button>
-      <div id="settings"><strong>Personalizar RayPay</strong><div class="toggles"><label><input id="sound" type="checkbox" checked> Sonido</label><label><input id="haptic" type="checkbox" checked> Vibración*</label></div><p>*La vibración desde Safari no está disponible en todos los iPhone. En la app nativa sí.</p></div>
-      <div class="hint">Desde Atajos: automatización «Transacción» → «Abrir URL» con <strong>?play=1</strong> al final del enlace de RayPay.</div>
-      <div class="status">RayPay · No consulta ni registra pagos o tarjetas.</div>
+<body aria-label="RayPay. Toca cualquier parte de la pantalla para lanzar un rayo con sonido.">
+  <div class="scene" aria-hidden="true">
+    <div class="card-shadow"></div>
+    <div class="wallet-card">
+      <div class="badge-emblem"></div>
+      <div class="chip"></div>
+      <svg class="nfc" viewBox="0 0 45 50" aria-hidden="true">
+        <path d="M5 11 Q28 25 5 39 M15 6 Q43 25 15 44 M27 2 Q62 25 27 48" />
+      </svg>
+      <div class="card-sheen"></div>
     </div>
-  </main>
-  <script src="app.js" defer></script>
+  </div>
+  <div id="flash" aria-hidden="true"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <audio id="thunder" preload="auto" src="thunder.wav"></audio>
+  <script src="app.js?v=2" defer></script>
 </body>
 </html>

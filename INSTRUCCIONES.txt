@@ -1,0 +1,41 @@
+RayPay 2.0 — RAYO + TRUENO
+==========================
+Esta es la actualización de la versión web ya publicada en:
+https://pfuchsberger.github.io/raypay/
+
+QUÉ CAMBIÓ
+- Se quitaron textos, botones y menús de la pantalla.
+- Se ve únicamente una tarjeta simulada, sin datos bancarios reales.
+- El rayo amarillo cruza toda la pantalla sobre esa tarjeta.
+- Sonido original de descarga eléctrica seguido de un trueno.
+- Tocá cualquier lugar de la pantalla para repetir el efecto con sonido.
+- La dirección ?play=1 mantiene el disparo automático visual desde Atajos.
+
+ACTUALIZAR EL SITIO EXISTENTE EN GITHUB DESDE WINDOWS
+1. Descomprimí RayPay_v2_GitHub.zip.
+2. Entrá a https://github.com/pfuchsberger/raypay
+3. Actualizá en la RAÍZ del repositorio estos archivos:
+   index.html, app.js, sw.js, manifest.webmanifest, thunder.wav
+   (la carpeta icons/ puede quedar igual; está incluida por comodidad).
+4. Confirmá los cambios (Commit changes) y esperá la publicación de GitHub Pages.
+5. En iPhone, abrí Safari y visitá:
+   https://pfuchsberger.github.io/raypay/?play=1&v=2
+   Este enlace fuerza una navegación nueva y dispara la animación.
+6. La app ya añadida a la pantalla de inicio conserva el ícono. Cerrala
+   completamente y volvé a abrirla; si ves la versión anterior, cargá la
+   nueva página en Safari y eliminá/agregá nuevamente el acceso directo.
+
+SONIDO EN IPHONE
+- Al tocar la pantalla, Safari normalmente permite reproducir el trueno.
+- Si Atajos abre la URL sin interacción, iOS puede bloquear el audio por
+  sus reglas de reproducción automática. El rayo visual sí se ejecuta.
+- Para sonido automático desde Atajos, se puede probar una automatización
+  que reproduzca thunder.wav desde Archivos antes de abrir la URL;
+  esa alternativa depende de las opciones y permisos disponibles en tu iOS.
+- La app no se superpone sobre Apple Wallet; muestra una tarjeta simulada.
+
+URL PARA LA AUTOMATIZACIÓN
+https://pfuchsberger.github.io/raypay/?play=1
+
+PRIVACIDAD
+RayPay no consulta pagos ni datos bancarios. El disparo lo hace Atajos.
